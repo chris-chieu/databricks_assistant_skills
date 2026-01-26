@@ -64,13 +64,13 @@ For SQL Editor which can only run SQL, use the Unity Catalog function defined in
 
 | UC Function | Purpose |
 |-------------|---------|
-| `christophe_chieu.certified_tables.query_mas` | Query MAS via SQL |
+| `<INSERT_CATALOG>.<INSERT_SCHEMA>.query_mas` | Query MAS via SQL |
 
 **SQL Usage:**
 ```sql
-SELECT christophe_chieu.certified_tables.query_mas(
+SELECT <INSERT_CATALOG>.<INSERT_SCHEMA>.query_mas(
     'Can you cross-reference customer performance with our company strategy?',
-    secret('vm_cchieu', 'my_token_secret')
+    secret('<INSERT_SECRET_SCOPE>', '<INSERT_TOKEN_SECRET_KEY>')
 ) as result;
 ```
 
@@ -79,7 +79,7 @@ SELECT christophe_chieu.certified_tables.query_mas(
 ### Step 1: Get the Token
 
 ```python
-token = dbutils.secrets.get(scope="vm_cchieu", key="my_token_secret")
+token = dbutils.secrets.get(scope="<INSERT_SECRET_SCOPE>", key="<INSERT_TOKEN_SECRET_KEY>")
 ```
 
 ### Step 2: Query MAS
@@ -124,7 +124,7 @@ Present the result to the user.
 ```python
 from scripts.mas_query import query_mas
 
-token = dbutils.secrets.get(scope="vm_cchieu", key="my_token_secret")
+token = dbutils.secrets.get(scope="<INSERT_SECRET_SCOPE>", key="<INSERT_TOKEN_SECRET_KEY>")
 
 # User: "Can you cross-reference the performance seen among our customers with our company's strategy?"
 result = query_mas(
@@ -146,7 +146,7 @@ result = query_mas(
 ### query_mas
 - `question` (str): The user's natural language question
 - `token` (str): Databricks personal access token
-- `endpoint_name` (str, optional): The MAS endpoint name (default: mas-beb9b9ee-endpoint)
+- `endpoint_name` (str, optional): The MAS endpoint name
 - `host` (str, optional): Databricks workspace host URL
 
 ## Notes

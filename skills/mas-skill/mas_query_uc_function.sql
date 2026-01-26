@@ -1,7 +1,7 @@
 -- Unity Catalog Python Function for Multi-Agent System (MAS) Query
 -- This function allows querying the MAS endpoint from SQL Editor
 
-CREATE OR REPLACE FUNCTION christophe_chieu.certified_tables.query_mas(
+CREATE OR REPLACE FUNCTION <INSERT_CATALOG>.<INSERT_SCHEMA>.query_mas(
     question STRING,
     token STRING
 )
@@ -12,8 +12,8 @@ AS $$
 import json
 import requests
 
-DATABRICKS_HOST = "https://fe-vm-vdm-christophe-chieu.cloud.databricks.com"
-MAS_ENDPOINT = "mas-beb9b9ee-endpoint"
+DATABRICKS_HOST = "<INSERT_DATABRICKS_HOST>"
+MAS_ENDPOINT = "<INSERT_MAS_ENDPOINT_NAME>"
 
 try:
     url = f"{DATABRICKS_HOST}/serving-endpoints/{MAS_ENDPOINT}/invocations"
@@ -84,19 +84,19 @@ $$;
 -- ============================================================================
 
 -- Query the MAS with a question
--- SELECT christophe_chieu.certified_tables.query_mas(
+-- SELECT <INSERT_CATALOG>.<INSERT_SCHEMA>.query_mas(
 --     'Can you cross-reference the performance seen among our customers with our company strategy?',
---     secret('vm_cchieu', 'my_token_secret')
+--     secret('<INSERT_SECRET_SCOPE>', '<INSERT_TOKEN_SECRET_KEY>')
 -- ) as result;
 
 -- Query about churn and strategy
--- SELECT christophe_chieu.certified_tables.query_mas(
+-- SELECT <INSERT_CATALOG>.<INSERT_SCHEMA>.query_mas(
 --     'What factors are driving customer churn and how should we adjust our marketing strategy?',
---     secret('vm_cchieu', 'my_token_secret')
+--     secret('<INSERT_SECRET_SCOPE>', '<INSERT_TOKEN_SECRET_KEY>')
 -- ) as result;
 
 -- Query about support and retention
--- SELECT christophe_chieu.certified_tables.query_mas(
+-- SELECT <INSERT_CATALOG>.<INSERT_SCHEMA>.query_mas(
 --     'How do support ticket trends relate to customer retention?',
---     secret('vm_cchieu', 'my_token_secret')
+--     secret('<INSERT_SECRET_SCOPE>', '<INSERT_TOKEN_SECRET_KEY>')
 -- ) as result;

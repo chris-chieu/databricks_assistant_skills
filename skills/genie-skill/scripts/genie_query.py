@@ -19,8 +19,8 @@ def get_workspace_client() -> WorkspaceClient:
     - DATABRICKS_HOST
     - DATABRICKS_TOKEN (or other auth methods)
     """
-    return WorkspaceClient(host="https://fe-vm-vdm-christophe-chieu.cloud.databricks.com",
-                           token=dbutils.secrets.get(scope="vm_cchieu", key="my_token_secret"))
+    return WorkspaceClient(host="<INSERT_DATABRICKS_HOST>",
+                           token=dbutils.secrets.get(scope="<INSERT_SECRET_SCOPE>", key="<INSERT_TOKEN_SECRET_KEY>"))
 
 
 def start_conversation(

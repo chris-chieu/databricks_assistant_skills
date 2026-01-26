@@ -11,8 +11,8 @@ Query Databricks Genie spaces using natural language to answer questions about t
 
 | Space | ID | Domain | Use For |
 |-------|-----|--------|---------|
-| Customer Churn Analytics | `01f0f9f0b9c41c74a5adfb46bfc836dd` | Customer demographics & behavior | Churn analysis, retention, tenure, service usage, marketing strategies |
-| Support Tickets | `01f0f9f6fb1c13f08595fffdd1fc82d3` | Support operations | Resolution times, response times, satisfaction, SLA, agent performance |
+| Customer Churn Analytics | `<INSERT_GENIE_SPACE_ID_1>` | Customer demographics & behavior | Churn analysis, retention, tenure, service usage, marketing strategies |
+| Support Tickets | `<INSERT_GENIE_SPACE_ID_2>` | Support operations | Resolution times, response times, satisfaction, SLA, agent performance |
 
 ## Space Selection
 
@@ -68,40 +68,40 @@ For SQL Editor which can only run SQL, use the Unity Catalog functions defined i
 
 | UC Function | Purpose |
 |-------------|---------|
-| `christophe_chieu.certified_tables.genie_start_conversation` | Start a new conversation |
-| `christophe_chieu.certified_tables.genie_ask_followup` | Ask a follow-up question |
-| `christophe_chieu.certified_tables.genie_delete_conversation` | Delete conversation |
+| `<INSERT_CATALOG>.<INSERT_SCHEMA>.genie_start_conversation` | Start a new conversation |
+| `<INSERT_CATALOG>.<INSERT_SCHEMA>.genie_ask_followup` | Ask a follow-up question |
+| `<INSERT_CATALOG>.<INSERT_SCHEMA>.genie_delete_conversation` | Delete conversation |
 
 #### SQL Usage Examples
 
 **Start a conversation:**
 ```sql
-SELECT christophe_chieu.certified_tables.genie_start_conversation(
-    '01f0f9f0b9c41c74a5adfb46bfc836dd',
+SELECT <INSERT_CATALOG>.<INSERT_SCHEMA>.genie_start_conversation(
+    '<INSERT_GENIE_SPACE_ID>',
     'What is our customer churn rate?',
-    secret('vm_cchieu', 'sp_client_id'),
-    secret('vm_cchieu', 'sp_client_secret')
+    secret('<INSERT_SECRET_SCOPE>', '<INSERT_CLIENT_ID_SECRET_KEY>'),
+    secret('<INSERT_SECRET_SCOPE>', '<INSERT_CLIENT_SECRET_SECRET_KEY>')
 ) as result;
 ```
 
 **Ask a follow-up (use conversation_id from previous result):**
 ```sql
-SELECT christophe_chieu.certified_tables.genie_ask_followup(
-    '01f0f9f0b9c41c74a5adfb46bfc836dd',
+SELECT <INSERT_CATALOG>.<INSERT_SCHEMA>.genie_ask_followup(
+    '<INSERT_GENIE_SPACE_ID>',
     '<CONVERSATION_ID>',
     'Break that down by customer tenure',
-    secret('vm_cchieu', 'sp_client_id'),
-    secret('vm_cchieu', 'sp_client_secret')
+    secret('<INSERT_SECRET_SCOPE>', '<INSERT_CLIENT_ID_SECRET_KEY>'),
+    secret('<INSERT_SECRET_SCOPE>', '<INSERT_CLIENT_SECRET_SECRET_KEY>')
 ) as result;
 ```
 
 **Delete conversation when done:**
 ```sql
-SELECT christophe_chieu.certified_tables.genie_delete_conversation(
-    '01f0f9f0b9c41c74a5adfb46bfc836dd',
+SELECT <INSERT_CATALOG>.<INSERT_SCHEMA>.genie_delete_conversation(
+    '<INSERT_GENIE_SPACE_ID>',
     '<CONVERSATION_ID>',
-    secret('vm_cchieu', 'sp_client_id'),
-    secret('vm_cchieu', 'sp_client_secret')
+    secret('<INSERT_SECRET_SCOPE>', '<INSERT_CLIENT_ID_SECRET_KEY>'),
+    secret('<INSERT_SECRET_SCOPE>', '<INSERT_CLIENT_SECRET_SECRET_KEY>')
 ) as result;
 ```
 
@@ -188,7 +188,7 @@ from scripts.genie_query import start_conversation, ask_followup, delete_convers
 
 # User: "What's our customer churn rate?"
 # → Route to Customer Churn Analytics
-churn_space_id = "01f0f9f0b9c41c74a5adfb46bfc836dd"
+churn_space_id = "<INSERT_GENIE_SPACE_ID_1>"
 response = start_conversation(churn_space_id, "What's our customer churn rate?")
 conversation_id = response.conversation_id
 # → Present response
@@ -206,7 +206,7 @@ delete_conversation(churn_space_id, conversation_id)
 
 # User: "Now show me average ticket resolution time"
 # → Route to Support Tickets (different space)
-support_space_id = "01f0f9f6fb1c13f08595fffdd1fc82d3"
+support_space_id = "<INSERT_GENIE_SPACE_ID_2>"
 response = start_conversation(support_space_id, "What's the average ticket resolution time?")
 conversation_id = response.conversation_id
 # → Present response

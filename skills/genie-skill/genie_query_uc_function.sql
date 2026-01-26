@@ -4,7 +4,7 @@
 -- ============================================================================
 -- Function 1: Start a new Genie conversation
 -- ============================================================================
-CREATE OR REPLACE FUNCTION christophe_chieu.certified_tables.genie_start_conversation(
+CREATE OR REPLACE FUNCTION <INSERT_CATALOG>.<INSERT_SCHEMA>.genie_start_conversation(
     space_id STRING,
     question STRING,
     client_id STRING,
@@ -18,7 +18,7 @@ import json
 from databricks.sdk import WorkspaceClient
 from datetime import timedelta
 
-DATABRICKS_HOST = "https://e2-demo-field-eng.cloud.databricks.com"
+DATABRICKS_HOST = "<INSERT_DATABRICKS_HOST>"
 
 w = WorkspaceClient(
     host=DATABRICKS_HOST,
@@ -98,7 +98,7 @@ $$;
 -- ============================================================================
 -- Function 2: Ask a follow-up question in an existing conversation
 -- ============================================================================
-CREATE OR REPLACE FUNCTION christophe_chieu.certified_tables.genie_ask_followup(
+CREATE OR REPLACE FUNCTION <INSERT_CATALOG>.<INSERT_SCHEMA>.genie_ask_followup(
     space_id STRING,
     conversation_id STRING,
     question STRING,
@@ -113,7 +113,7 @@ import json
 from databricks.sdk import WorkspaceClient
 from datetime import timedelta
 
-DATABRICKS_HOST = "https://e2-demo-field-eng.cloud.databricks.com"
+DATABRICKS_HOST = "<INSERT_DATABRICKS_HOST>"
 
 w = WorkspaceClient(
     host=DATABRICKS_HOST,
@@ -194,7 +194,7 @@ $$;
 -- ============================================================================
 -- Function 3: Delete a conversation
 -- ============================================================================
-CREATE OR REPLACE FUNCTION christophe_chieu.certified_tables.genie_delete_conversation(
+CREATE OR REPLACE FUNCTION <INSERT_CATALOG>.<INSERT_SCHEMA>.genie_delete_conversation(
     space_id STRING,
     conversation_id STRING,
     client_id STRING,
@@ -207,7 +207,7 @@ AS $$
 import json
 from databricks.sdk import WorkspaceClient
 
-DATABRICKS_HOST = "https://e2-demo-field-eng.cloud.databricks.com"
+DATABRICKS_HOST = "<INSERT_DATABRICKS_HOST>"
 
 w = WorkspaceClient(
     host=DATABRICKS_HOST,
@@ -241,35 +241,27 @@ $$;
 -- Example Usage
 -- ============================================================================
 
--- Start a conversation with Customer Churn Analytics space
--- SELECT christophe_chieu.certified_tables.genie_start_conversation(
---     '01f0f9f0b9c41c74a5adfb46bfc836dd',
+-- Start a conversation with a Genie space
+-- SELECT <INSERT_CATALOG>.<INSERT_SCHEMA>.genie_start_conversation(
+--     '<INSERT_GENIE_SPACE_ID>',
 --     'What is our customer churn rate?',
---     secret('vm_cchieu', 'sp_client_id'),
---     secret('vm_cchieu', 'sp_client_secret')
+--     secret('<INSERT_SECRET_SCOPE>', '<INSERT_CLIENT_ID_SECRET_KEY>'),
+--     secret('<INSERT_SECRET_SCOPE>', '<INSERT_CLIENT_SECRET_SECRET_KEY>')
 -- ) as result;
 
 -- Ask a follow-up question (use conversation_id from previous response)
--- SELECT christophe_chieu.certified_tables.genie_ask_followup(
---     '01f0f9f0b9c41c74a5adfb46bfc836dd',
+-- SELECT <INSERT_CATALOG>.<INSERT_SCHEMA>.genie_ask_followup(
+--     '<INSERT_GENIE_SPACE_ID>',
 --     '<CONVERSATION_ID_FROM_START>',
 --     'Break that down by customer tenure',
---     secret('vm_cchieu', 'sp_client_id'),
---     secret('vm_cchieu', 'sp_client_secret')
+--     secret('<INSERT_SECRET_SCOPE>', '<INSERT_CLIENT_ID_SECRET_KEY>'),
+--     secret('<INSERT_SECRET_SCOPE>', '<INSERT_CLIENT_SECRET_SECRET_KEY>')
 -- ) as result;
 
 -- Delete conversation when done
--- SELECT christophe_chieu.certified_tables.genie_delete_conversation(
---     '01f0f9f0b9c41c74a5adfb46bfc836dd',
+-- SELECT <INSERT_CATALOG>.<INSERT_SCHEMA>.genie_delete_conversation(
+--     '<INSERT_GENIE_SPACE_ID>',
 --     '<CONVERSATION_ID>',
---     secret('vm_cchieu', 'sp_client_id'),
---     secret('vm_cchieu', 'sp_client_secret')
--- ) as result;
-
--- Start a conversation with Support Tickets space
--- SELECT christophe_chieu.certified_tables.genie_start_conversation(
---     '01f0f9f6fb1c13f08595fffdd1fc82d3',
---     'What is the average ticket resolution time?',
---     secret('vm_cchieu', 'sp_client_id'),
---     secret('vm_cchieu', 'sp_client_secret')
+--     secret('<INSERT_SECRET_SCOPE>', '<INSERT_CLIENT_ID_SECRET_KEY>'),
+--     secret('<INSERT_SECRET_SCOPE>', '<INSERT_CLIENT_SECRET_SECRET_KEY>')
 -- ) as result;

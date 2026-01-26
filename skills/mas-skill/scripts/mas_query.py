@@ -9,8 +9,8 @@ import json
 from typing import Optional
 
 
-DATABRICKS_HOST = "https://fe-vm-vdm-christophe-chieu.cloud.databricks.com"
-MAS_ENDPOINT = "mas-beb9b9ee-endpoint"
+DATABRICKS_HOST = "<INSERT_DATABRICKS_HOST>"
+MAS_ENDPOINT = "<INSERT_MAS_ENDPOINT_NAME>"
 
 
 def query_mas(
